@@ -1,13 +1,21 @@
 <html lang="en">
 <head>
+<!-- WebUI development version 2026-01-11, https://github.com/TangoBravo64
+     GNU GENERAL PUBLIC LICENSE, Version 3, (c) Purple Tentacle
+-->
 <meta charset="utf-8">
-<title>Ultimate II/64</title>
+<title>Commodore 64 Ultimate</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.terminal/js/jquery.terminal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.terminal/css/jquery.terminal.min.css"/>
+<link id="favicon" rel="icon" href="" type="image/png">
 
 <script>
+COMMODORE_LOGO = "data:image/png;base64, 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";
+
+const favicon = document.getElementById("favicon");
+favicon.setAttribute("href", COMMODORE_LOGO);
 
 var serverIP = window.location.hostname;
 var apiPassword = "";
@@ -34,12 +42,23 @@ $(document).ready(async function () {
             }
             let product = ultimateInfo.product ? ultimateInfo.product : "Ultimate II/64";
             if (apiPassword != "") {
-                $("#logoutmenuitem").show();
+                $("#logout").show();
             }
             else {
-                $("#logoutmenuitem").hide();
+                $("#logout").hide();
             }
-            $("#banner").html(product + " HTTP Server");
+
+            $("#banner").html("<img src='"+COMMODORE_LOGO+"' style='vertical-align:middle;height:40px;margin-right:10px;'>Commodore 64 Ultimate");
+
+            let sysInfo = "";
+            if (ultimateInfo.firmware_version)
+                sysInfo += "firmware: v"+ultimateInfo.firmware_version;
+            if (ultimateInfo.product)
+                sysInfo += "<br/>hardware: "+ultimateInfo.product;
+
+            if (sysInfo !== "")
+                $("#firmware_version").html(sysInfo);
+
             $("#left-nav").css("visibility", "visible");
             $(".page").hide();
             $("#welcome").show();
@@ -72,6 +91,18 @@ $(document).ready(async function () {
         let [status_code, content] = await make_put_request("http://" + serverIP + "/v1/machine:reset", params);
     };
 
+    $('#doshutdown').click(function(event){
+        event.preventDefault(); // Prevents the default action of the anchor tag
+        doPowerOff();
+    });
+
+    async function doPowerOff() {
+        let params = {};
+        if (confirm("Confirm: switch off power of your Ultimate?")) {
+            let [status_code, content] = await make_put_request("http://" + serverIP + "/v1/machine:poweroff", params);
+        }
+    };
+
     $('#doreboot').click(function(event){
         event.preventDefault(); // Prevents the default action of the anchor tag
         doReboot();
@@ -102,6 +133,24 @@ $(document).ready(async function () {
             event.preventDefault(); // Prevents the default action of the anchor tag
             $(".page").hide();
             $('#welcome').show();
+    });
+
+    $('#showconfig').click(function(event){
+            event.preventDefault(); // Prevents the default action of the anchor tag
+            $(".page").hide();
+            $('#config').show();
+            showConfig();
+    });
+
+    $('#submitSaveCfg').click(function(e) {e.preventDefault();submitConfig("save_to_flash");});
+    $('#submitLoadCfg').click(function(e) {e.preventDefault();submitConfig("load_from_flash");});
+    $('#submitResetCfg').click(function(e) {e.preventDefault();submitConfig("reset_to_default");});
+
+    $('#showfloppy').click(function(event){
+        event.preventDefault(); // Prevents the default action of the anchor tag
+        $(".page").hide();
+        $('#floppy').show();
+        showFloppy();
     });
 
     // SID page event handlers
@@ -187,7 +236,7 @@ $(document).ready(async function () {
     function getFileExtension(filename) {
         let parts = filename.split('.');
         let extension = parts.length > 1 ? parts[parts.length - 1] : '';
-        return extension.toUpperCase();
+        return extension;
     }
 
     async function submitSidPlayer() {
@@ -195,7 +244,7 @@ $(document).ready(async function () {
         let params = {};
         $("#sidmsg").hide();
 
-        let extension = getFileExtension(body.name);
+        let extension = getFileExtension(body.name).toUpperCase();
         if (extension !== "SID") {
             alert("Unsupported file extension: '."+ extension.toLowerCase()+"'");
             return;
@@ -208,9 +257,11 @@ $(document).ready(async function () {
     }
 
     // PRG/CRT(/SID) loader
-    async function submitRunner() {
-        let body = $('#runnerfile')[0].files[0];
-        let extension = getFileExtension(body.name);
+    async function submitRunner(file, drive) {
+        if (drive === undefined) drive = "a";
+        if (file === undefined)
+          file = $('#runnerfile')[0].files[0];
+        let extension = getFileExtension(file.name).toUpperCase();;
         let params = {};
         $("#runmsg").hide();
 
@@ -221,14 +272,28 @@ $(document).ready(async function () {
             route = "/v1/runners:run_crt";
         else if (extension === "SID")
             route = "/v1/runners:sidplay";
+        else if (extension === "D64") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d64"};
+        }
+        else if (extension === "D71") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d71"};
+        }
+        else if (extension === "D81") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d81"};
+        }
         else
             alert("Unsupported file extension: '."+ extension.toLowerCase()+"'");
 
         if (route !== null) {
-            let [status_code, content] = await make_post_request("http://" + serverIP + route, params, body);
+            let [status_code, content] = await make_post_request("http://" + serverIP + route, params, file);
             if(status_code !== 200)
                 $("#runmsg").show();
+            return status_code == 200;
 	}
+	return false;
     }
 
     // BASIC/tokenizer page event handlers
@@ -282,6 +347,590 @@ $(document).ready(async function () {
             return false;
         }
         return true;
+    }
+
+let VolumeOptions = ["OFF", "-42 dB", "-36 dB", "-30 dB", "-27 dB", "-24 dB", "-18 dB", "-17 dB", "-16 dB", "-15 dB", "-14 dB", "-13 dB", "-12 dB", "-11 dB", "-10 dB", "-9 dB", "-8 dB", "-7 dB", "-6 dB", "-5 dB", "-4 dB","-3 dB","-2 dB","-1 dB","0 dB"];
+let BalanceOptions = ["Left 5", "Left 4", "Left 3", "Left 2", "Left 1", "Center", "Right 1", "Right 2", "Right 3", "Right 4", "Right 5"];
+let LedModes = ["On", "Off", "Drive A Pwr", "DrvAPwr + DrvBPwr", "Drive A Act", "DrvAAct + DrvBAct",
+                "DrvAPwr ^ DrvAAct", "USB Activity", "Any Activity", "!(DrvAAct)", "!(DrvAAct+DrvBAct)",
+                "!(USB Act)", "!(Any Act)", "IRQ Line", "!(IRQ Line)", "Drive B Act"];
+let ZoneNames = [
+    "US Baker Island",
+    "America Samoa",
+    "Hawaii",
+    "French Polynesia",
+    "Alaska",
+    "Los Angeles",
+    "Denver, Colorado",
+    "Phoenix, Arizona",
+    "Chicago, Illinois",
+    "New York",
+    "Argentina",
+    "Newfoundland",
+    "Greenland",
+    "Cabo Verde",
+    "Iceland",
+    "UK",
+    "Western Europe",
+    "Greece",
+    "Azerbaijan",
+    "Iran",
+    "Pakistan",
+    "India",
+    "Nepal",
+    "Bangladesh",
+    "Myanmar",
+    "Indonesia",
+    "China",
+    "Western Australia",
+    "Japan",
+    "Central Australia",
+    "Eastern Australia",
+    "Lord Howe Island",
+    "Solomon Islands",
+    "New Zealand",
+    "Chatham Islands",
+    "Tonga",
+    "Christmas Island",
+];
+
+let SIDAddresses = ["Unmapped","$D400", "$D420", "$D440", "$D460", "$D480", "$D4A0", "$D4C0", "$D4E0",
+                               "$D500", "$D520", "$D540", "$D560", "$D580", "$D5A0", "$D5C0", "$D5E0",
+                               "$D600", "$D620", "$D640", "$D660", "$D680", "$D6A0", "$D6C0", "$D6E0",
+                               "$D700", "$D720", "$D740", "$D760", "$D780", "$D7A0", "$D7C0", "$D7E0",
+                               "$DE00", "$DE20", "$DE40", "$DE60",
+                               "$DE80", "$DEA0", "$DEC0", "$DEE0",
+                               "$DF00", "$DF20", "$DF40", "$DF60",
+                               "$DF80", "$DFA0", "$DFC0", "$DFE0"];
+
+let DcdDsr = ["Active (Low)", "Active when connected", "Inactive when connected", "Inactive (High)", "Act. when connecting",
+              "Inact. when connecting"];
+
+let ConfigOptions = {
+	// Speaker/Audio Mixer
+	"Speaker Enable": ["Enabled", "Disabled"],
+	"Vol UltiSid 1": VolumeOptions,
+	"Vol UltiSid 2": VolumeOptions,
+	"Vol Socket 1": VolumeOptions,
+	"Vol Socket 2": VolumeOptions,
+	"Vol Sampler L": VolumeOptions,
+	"Vol Sampler R": VolumeOptions,
+	"Vol Drive 1": VolumeOptions,
+	"Vol Drive 2": VolumeOptions,
+	"Vol Tape Read": VolumeOptions,
+	"Vol Tape Write": VolumeOptions,
+	"Pan UltiSID 1": BalanceOptions,
+	"Pan UltiSID 2": BalanceOptions,
+	"Pan Socket 1": BalanceOptions,
+	"Pan Socket 2": BalanceOptions,
+	"Pan Sampler L": BalanceOptions,
+	"Pan Sampler R": BalanceOptions,
+	"Pan Drive 1": BalanceOptions,
+	"Pan Drive 2": BalanceOptions,
+	"Pan Tape Read": BalanceOptions,
+	"Pan Tape Write": BalanceOptions,
+
+	// SID Socket
+	"SID Socket 1": ["Enabled", "Disabled"],
+	"SID Socket 2": ["Enabled", "Disabled"],
+	"SID Detected Socket 1": "",
+	"SID Detected Socket 2": "",
+	"SID Socket 1 1K Ohm Resistor": ["On", "Off"],
+	"SID Socket 2 1K Ohm Resistor": ["On", "Off"],
+	"SID Socket 1 Capacitors": ["470 pF", "22 nF"],
+	"SID Socket 2 Capacitors": ["470 pF", "22 nF"],
+
+	// UltiSID
+	"UltiSID 1 Filter Curve": ["8580 Lo", "8580 Hi", "6581", "6581 Alt", "U2 Low", "U2 Mid", "U2 High"],
+	"UltiSID 2 Filter Curve": ["8580 Lo", "8580 Hi", "6581", "6581 Alt", "U2 Low", "U2 Mid", "U2 High"],
+	"UltiSID 1 Filter Resonance": ["Low", "High"],
+	"UltiSID 2 Filter Resonance": ["Low", "High"],
+	"UltiSID 1 Combined Waveforms": ["6581", "8580"],
+	"UltiSID 2 Combined Waveforms": ["6581", "8580"],
+	"UltiSID 1 Digis Level": ["Off", "Low", "Medium", "High"],
+	"UltiSID 2 Digis Level": ["Off", "Low", "Medium", "High"],
+
+	// Tape Settings
+	"Tape Playback Rate": ["0.98 MHz (PAL)",  "1.02 MHz (NTSC)" ],
+
+	// System
+	"System Mode": ["PAL", "NTSC", "PAL-60", "NTSC-50", "PAL-60/L", "NTSC-50/L"],
+	"HDMI Scan Resolution": ["SD (480p/576p)", "HD (720p)", "FullHD (1080p)", "PC 800x600", "PC 1024 x 768", "PC 1280 x 1024"],
+	"HDMI Scan lines": ["Enabled", "Disabled"],
+	"Adjust Color Clock": "number",
+	"Joystick Swapper": ["Normal", "Swapped", "WASD Port 1", "WASD Port 2"],
+	"UserPort Power Enable": ["Enabled", "Disabled"],
+	"Paddle Override": ["Enabled", "Disabled"],
+	"Analog Video Mode": ["CVBS + SVideo", "RGB"],
+	"Digital Video Mode": ["Auto", "HDMI", "DVI"],
+	"SpeedDOS Parallel Cable": ["Enabled", "Disabled"],
+	"Serial Bus Mode": ["All Connected", "C64 <-> Internal", "Ext. <-> Int.", "C64 <-> External"],
+	"Burst Mode Patch": ["Off", "CIA1", "CIA2"],
+	"LED Select Top": LedModes,
+	"LED Select Bot": LedModes,
+	"SID Player Autoconfig": ["Enabled", "Disabled"],
+	"Allow Autoconfig uses UltiSid": ["Yes", "No"],
+	"Turbo Control": ["On", "Off"],
+	"CPU Speed": [" 1", " 2", " 3", " 4", " 6", " 8", "10", "12", "14", "16", "18", "20", "24", "32", "40", "48", "64"],
+	"Badline Timing": ["Enabled", "Disabled"],
+	"SuperCPU Detect (D0BC)": ["Enabled", "Disabled"],
+	"Palette Definition": "",
+
+	// Wifi
+	"Use DHCP": ["Enabled", "Disabled"],
+	"Static IP": "text",
+	"Static Netmask": "text",
+	"Static Gateway": "text",
+	"Static DNS": "text",
+
+	// Network
+	"Host Name": "text",
+	"Unique ID": "text",
+	"Network Password": "password",
+	"Ultimate Ident Service": ["Enabled", "Disabled"],
+	"Ultimate DMA Service": ["Enabled", "Disabled"],
+	"Telnet Remote Menu Service": ["Enabled", "Disabled"],
+	"FTP File Service": ["Enabled", "Disabled"],
+	"Web Remote Control Service": ["Enabled", "Disabled"],
+	"Log to Syslog Server": "text",
+	"SNTP Enable": ["Enabled", "Disabled"],
+	"TimeZone": ZoneNames,
+	"Time Server 1": "text",
+	"Time Server 2": "text",
+	"Time Server 3": "text",
+
+	// LED Strip
+	"LedStrip Type": ["WS2812", "APA102"],
+	"LedStrip Length": "number",
+	"LedStrip Mode": ["Off", "Fixed Color", "SID Music", "Rainbow"],
+	"LedStrip Pattern": ["SingleColor", "Left to Right", "Right to Left"],
+	"LedStrip SID Select": ["UltiSID1-A", "UltiSID1-B", "UltiSID1-C", "UltiSID1-D", "UltiSID2-A", "UltiSID2-B", "UltiSID2-C", "UltiSID2-D"],
+	"Strip Intensity": "number",
+	"Fixed Color": ["Red","Scarlet","Orange","Amber","Yellow","Lemon-Lime","Chartreuse","Lime","Green","Jade","Spring Green",
+	                "Aquamarine","Cyan","Deep Sky Blue","Azure","Royal Blue","Blue","Indigo","Violet","Purple","Magenta",
+	                "Fuchsia","Rose","Cerise","White"],
+	"Color tint": ["Pure", "Bright", "Pastel", "Whisper"],
+
+	// Data Streams
+	"Stream VIC to": "text",
+	"Stream Audio to": "text",
+	"Stream Debug to": "text",
+	"Debug Stream Mode": ["6510 Only", "VIC Only", "6510 & VIC", "1541 Only", "6510 & 1541", "6510 w/IEC", "6510 & VIC w/IEC"],
+
+	// SID Addressing
+	"SID Socket 1 Address": SIDAddresses,
+	"SID Socket 2 Address": SIDAddresses,
+	"Ext DualSID Range Split": ["Off", "A5", "A6", "A7", "A8", "A9"],
+	"UltiSID 1 Address": SIDAddresses,
+	"UltiSID 2 Address": SIDAddresses,
+	"UltiSID Range Split": ["Off", "1/2 (A5)", "1/2 (A6)", "1/2 (A7)", "1/2 (A8)", "1/4 (A5,A6)", "1/4 (A5,A8)", "1/4 (A7,A8)"],
+	"Auto Address Mirroring": ["Enabled", "Disabled"],
+
+	// Cartridge
+	"Cartridge": "text",
+	"Cartridge Preference": ["Auto", "Internal", "External", "Manual"],
+	"Bus Operation Mode": ["Quiet", "Writes", "Dynamic", "Dyn. & Writes"],
+	"Bus Sharing - ROMs": ["Internal", "External", "Both"],
+	"Bus Sharing - I/O1": ["Internal", "External", "Both"],
+	"Bus Sharing - I/O2": ["Internal", "External", "Both"],
+	"Bus Sharing - Interrupts": ["Internal", "External", "Both"],
+	"Fast Reset": ["Enabled", "Disabled"],
+	"Kernal ROM": "text",
+	"Basic ROM": "text",
+	"Char ROM": "text",
+	"RAM Expansion Unit": ["Enabled", "Disabled"],
+	"REU Size": ["128 KB", "256 KB", "512 KB", "1 MB", "2 MB", "4 MB", "8 MB", "16 MB"],
+	"REU Preload": ["Enabled", "Disabled"],
+	"REU Preload Image": "text",
+	"REU Preload Offset": ["0 KB", "128 KB", "256 KB", "512 KB", "1 MB", "2 MB", "4 MB", "8 MB", "16 MB"],
+	"Map Ultimate Audio $DF20-DFFF": ["Enabled", "Disabled"],
+	"DMA Load Mimics ID:": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+	"DMA Load Mimics ID": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+	"Command Interface": ["Enabled", "Disabled"],
+
+	// SoftIEC Drive
+	"IEC Drive": ["Enabled", "Disabled"],
+	"Soft Drive Bus ID": 	["8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"],
+	"Default Path": "text",
+
+	// Printer
+	"IEC printer": ["Enabled", "Disabled"],
+	"Bus ID": ["4", "5"],
+	"Output file": "text",
+	"Output type": ["RAW", "ASCII", "PNG B&W", "PNG COLOR"],
+	"Ink density": ["Low", "Medium", "High", "Squares"],
+	"Page top margin (default is 5)": "number",
+	"Page height (default is 60)": "number",
+	"Emulation": ["Commodore MPS", "Epson FX-80/JX-80", "IBM Graphics Printer", "IBM Proprinter"],
+	"Commodore charset": ["USA/UK", "Denmark", "France/Italy", "Germany", "Spain", "Sweden", "Switzerland"],
+	"Epson charset": ["Basic", "USA", "France", "Germany", "UK", "Denmark I", "Sweden", "Italy", "Spain", "Japan", "Norway", "Denmark II" ],
+	"IBM table 2": ["International 1", "International 2", "Israel", "Greece", "Portugal", "Spain"],
+
+	// Drives
+	"Drive": ["Enabled", "Disabled"],
+	"Drive Type": ["1541", "1571", "1581"],
+	"Drive Bus ID": ["8", "9", "10", "11"],
+	"ROM for 1541 mode": "text",
+	"ROM for 1571 mode": "text",
+	"ROM for 1581 mode": "text",
+	"Extra RAM": ["Enabled", "Disabled"],
+	"Disk swap delay": ["1","2","3","4","5","6","7","8","9","10"],
+	"Resets when C64 resets": ["Yes", "No"],
+	"Freezes in menu": ["Yes", "No"],
+	"GCR Save Align Tracks": ["Yes", "No"],
+	"Leave Menu on Mount": ["Yes", "No"],
+	"D64 Geos Copy Protection": ["none", "Gaps", "Track 36", "Both"],
+
+	"Interface Type": ["Freeze", "Overlay on HDMI"],
+	"Navigation Style": ["Quick Search", "WASD Cursors"],
+	"Color Scheme": ["Standard Blue", "Ultimate Black"],
+	"Enter Home on Startup": ["Enabled", "Disabled"],
+	"Home Directory": "text",
+	"Auto Save Config": ["No", "Yes", "Ask"],
+	"Ulticopy Uses disk name": ["Enabled", "Disabled"],
+	"Filename overflow squeeze": ["None", "Beginning", "Middle", "End"],
+
+	// Modem
+	"Modem Interface": ["ACIA / SwiftLink"],
+	"ACIA (6551) Mapping": ["Off", "DE00/IRQ", "DE00/NMI", "DF00/IRQ", "DF00/NMI", "DF80/IRQ", "DF80/NMI"],
+	"Hardware Mode": ["SwiftLink", "Turbo232"],
+	"Listening Port": "number",
+	"Do RING sequence (incoming)": ["Enabled", "Disabled"],
+	"Drop connection on DTR low": ["Enabled", "Disabled"],
+	"RTS Handshake (Rx)": ["Enabled", "Disabled"],
+	"CTS Behavior": DcdDsr,
+	"DCD Behavior": DcdDsr,
+	"DSR Behavior": DcdDsr,
+	"Modem Offline Text": "text",
+	"Modem Connect Text": "text",
+	"Modem Busy Text": "text",
+	"Set Socket Opt TCP_NODELAY": ["Enabled", "Disabled"],
+	"Loop Delay": "number"
+};
+
+    function createInputElement(key, value) {
+        let param = (key in ConfigOptions) ? ConfigOptions[key] : null;
+        if (typeof param === "string") {
+            if (param === "text")
+                return $('<input type="'+param+'" />').val(value);
+            if (param === "password")
+                return $("<span>").text("***");
+            if (param == "number")
+                return $('<input type="number" placeholder="Enter a number"/>').val(value);
+        }
+        else
+        if (Array.isArray(param)) {
+            const select = $('<select>');
+            param.forEach(item => {
+               const option = $('<option>').text(item).val(item);
+               if (item == value)
+                   option.prop("selected", true);
+               select.append(option);
+            });
+            return select;
+        }
+        return $("<span>").text(value);
+    }
+
+    async function configChange(path, key, value)
+    {
+	let params = {"value": value };
+	let route = "/v1/configs/"+encodeURIComponent(path)+"/"+encodeURIComponent(key);
+        [status_code, content] = await make_put_request("http://" + serverIP + route, params);
+        console.log("configChange", "path:", path, "route:", route, "key:", key, "value:", value, "status:", status_code);
+    }
+
+    async function showConfig(path) {
+        if (typeof path === 'undefined')
+            path = "";
+        let request_path = path;
+        if (path !== "")
+            request_path = "/"+path;
+        let [status_code, content] = await make_get_request("http://" + serverIP + "/v1/configs"+request_path);
+        console.log("showConfig", path, content);
+        if (status_code === 200) {
+            let table = $('<table class="config" border="1">');
+            let thead = $('<thead>');
+            let tbody = $('<tbody>');
+            let row = $('<tr>');
+            let cell = "";
+            if (path === "")
+                cell = $('<th class="click">').text("Main Menu");
+            else
+                cell = $('<th class="click" colspan=2>').html("&#x23CE; "+path);
+            cell.on("click", function () { showConfig(); });
+            row.append(cell);
+            if (path === "")
+                thead.append(row);
+            else
+                tbody.append(row);
+
+            if (path === "") {
+                content.categories.forEach(cat => {
+                let row = $('<tr>');
+                let cell = $('<td class="click">').text(cat);
+                cell.on("click", function () { showConfig(cat); });
+                    row.append(cell);
+                    tbody.append(row);
+                });
+            } else {
+                Object.entries(content[path]).forEach(([key, value]) => {
+                    let row = $('<tr>');
+                    row.append($('<td style="font-weight: bold;">').text(key));
+                    let inputElement = createInputElement(key, value);
+                    inputElement.on("change", async function () {
+                        await configChange(path, key, $(this).val());
+                        await showConfig(path); // read/verify
+                    });
+                    row.append($('<td>').append(inputElement));
+                    tbody.append(row);
+                });
+            }
+            table.append(thead).append(tbody);
+            $("#configarea").html(table);
+        }
+    }
+
+    async function submitConfig(operation) {
+    	let params = {};
+    	if (operation === "reset_to_default")
+    	{
+    	    if (!confirm("Confirm: reset all configuration settings to factory defaults?"))
+                return;
+    	}
+        [status_code, content] = await make_put_request("http://" + serverIP + "/v1/configs:"+operation, params);
+        if (operation === "load_from_flash")
+            await showConfig();
+    }
+
+    async function getDrivesData() {
+        let [status_code, content] = await make_get_request("http://" + serverIP + "/v1/drives");
+        let dataA = null;
+        let dataB = null;
+        if ((status_code === 200)&&("drives" in content)) {
+            content.drives.forEach(data => {
+                if ("a" in data)
+                    dataA = data.a;
+                if ("b" in data)
+                    dataB = data.b;
+            });
+        }
+        return [dataA, dataB];
+    }
+
+    function incrementLastDigit(s) {
+        return s.replace(/(\d)(?!.*\d)/, (_, d) =>
+            d === '9' ? '1' : String(Number(d) + 1)
+        );
+    }
+
+    function resetLastDigit(s) {
+        return s.replace(/(\d)(?!.*\d)/, (_, d) => '1');
+    }
+
+    async function mountDisk(drive, path) {
+        let extension = getFileExtension(path).toUpperCase();
+        if (extension === "D64") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d64", "image": path};
+        }
+        else if (extension === "D71") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d71", "image": path};
+        }
+        else if (extension === "D81") {
+            route = `/v1/drives/${drive}:mount`;
+            params = {"type":"d81", "image": path};
+        }
+        else
+            alert("Unsupported file extension: '."+ extension.toLowerCase()+"'");
+
+        if (route !== null) {
+            let [status_code, content] = await make_put_request("http://" + serverIP + route, params);
+            await showFloppy();
+            return status_code == 200;
+	}
+    }
+
+    async function flipDisk(drive, ID) {
+      let [dataA, dataB] = await getDrivesData();
+      let data = (drive=="a") ? dataA : dataB;
+      if ((data!=null)&&(data.image_file)) {
+          let filename = data.image_file;
+          let extension = getFileExtension(filename);
+          let basename = (extension.length === 0) ? filename : filename.slice(0, - extension.length);
+          const digitindex = basename.search(/\d(?!.*\d)/);
+          if ((digitindex > -1)&&(extension !== "")) {
+            let path = data.image_path + incrementLastDigit(basename)+extension;
+            console.log(filename, digitindex, path);
+            // check if file exists
+            let [status_code, content] = await make_get_request("http://" + serverIP + `/v1/files/${path}:info`);
+            if (status_code !== 200)
+            {
+              path = data.image_path + resetLastDigit(basename)+extension;
+              console.log(filename, digitindex, path);
+              // check if file exists
+              [status_code, content] = await make_get_request("http://" + serverIP + `/v1/files/${path}:info`);
+              if (status_code !== 200) {
+                  console.log("image does not exist!", path);
+                  return;
+               }
+            }
+            console.log("image exists!", drive, path);
+            mountDisk(drive, path);
+          }
+      }
+    }
+
+    async function floppyButton(Drive, ID, operation, file) {
+       console.log(Drive, ID, operation, file);
+       if (operation === "eject") {
+         let params = {};
+         let [status_code, content] = await make_put_request("http://" + serverIP + `/v1/drives/${Drive}:remove`, params);
+         showFloppy(); // update display
+       }
+       else if (operation === "run") {
+         let param = {address: "0277", data: "52554E0D"};
+         let [status_code, content] = await make_put_request("/v1/machine:writemem", param);
+         if (status_code === 200)
+             make_put_request("/v1/machine:writemem", {address: "00C6", data: "04"});
+       }
+       else if (operation === "load") {
+         let param = {address: "0277", data: "4C4F4144222A222C382C310D"};
+         if (ID=="9")
+           param = {address: "0277", data: "4C4F4144222A222C392C310D"};
+         let [status_code, content] = await make_put_request("/v1/machine:writemem", param);
+         if (status_code === 200)
+             make_put_request("/v1/machine:writemem", {address: "00C6", data: "0C"});
+       }
+       else if (operation === "file") {
+           await submitRunner(file, Drive);
+           showFloppy(); // update display
+       }
+       else if (operation === "flip") {
+           flipDisk(Drive, ID);
+       }
+
+       return false;
+    }
+
+    function makeFloppyButtons(drive, id) {
+      const container = $('<div>');
+      container.append(
+        $('<span>').append(
+            $('<input>', {type: 'button', value: '\u23CF', title: 'Eject mounted disk from drive.'}).on('click', function () {
+                return floppyButton(drive, id, 'eject');
+            })
+        ),
+        $('<span>').append(
+            $('<input>', {type: 'button', value: `LOAD "*",${id},1`, title: 'Send LOAD command to the C64'}).on('click', function () {
+                return floppyButton(drive, id, 'load');
+            })
+        ),
+        $('<span>').append(
+            $('<input>', {type: 'button', value: 'RUN', title: 'Send RUN command to the C64'}).on('click', function () {
+                return floppyButton(drive, id, 'run');
+            })
+        ),
+        $('<span>').append(
+            $('<input>', {type: 'button', value: 'Flip Disk!', title: 'Flip or cycle the mounted floppy disk (requires sequential file naming).'}).on('click', function () {
+                return floppyButton(drive, id, 'flip');
+            })
+        )
+      );
+      return container;
+    }
+
+    function showDrive(Drive, DriveData) {
+        let table = $('<table class="floppy">');
+        let tbody = $('<tbody>');
+        let row = $('<tr>');
+        row.append($('<td style="font-size: 28px;font-weight: bold;">').text("Drive "+Drive.toUpperCase()+", ID: "+DriveData.bus_id));
+
+        let td = $("<td style='font-size: 28px;'>");
+        let driveType = createInputElement("Drive Type", DriveData.type);
+        let DrivePath = "Drive "+Drive.toUpperCase()+" Settings";
+        driveType.on("change", async function () { configChange(DrivePath, "Drive Type", $(this).val()); });
+        td.append(driveType);
+        row.append(td);
+
+        let checkedOn  = (DriveData.enabled) ? " checked" : "";
+        let checkedOff = (!DriveData.enabled) ? " checked" : "";
+        let OnOff = `<div class="toggle"><input type="radio" id="${Drive}on" name="${Drive}power"${checkedOn}>`+
+                    `<input type="radio" class="off-radio" id="${Drive}off" name="${Drive}power"${checkedOff}>`+
+                    `<label for="${Drive}on" class="on">ON</label><label for="${Drive}off" class="off">OFF</label><span class="slider"></span></div>`;
+
+        row.append($("<td>"+OnOff+"</td>"));
+        tbody.append(row);
+        if (DriveData.image_file !== "")
+        {
+            const filename = DriveData.image_file.split('/').pop();
+            tbody.append($(`<tr id='mount'><td colspan='4' title='${DriveData.image_path}${DriveData.image_file}'>${filename}</td></tr>`));
+        } else
+            tbody.append($("<tr id='mount'><td colspan='4'><i>No disk in drive.</i></td></tr>"));
+
+        tbody.append($("<tr id='drop'><td colspan='4'><center>Drag & drop a floppy image file here<br/><br/>or press button to browse"+
+                       `<br/><br/><button id="drive${Drive}browse" title="Select floppy image file...">Browse...</button><br/><br/>`+
+                       "</center></td></tr>"));
+        tbody.append($(`<input type="file" id="drive${Drive}file" accept=".d64,.d71,.d81,.D64,.D71,.D81" title="Select drive image to be mounted">`));
+
+        row = $('<tr>');
+        td = $('<td class="floppybuttons" colspan="4">');
+        td.append(makeFloppyButtons(Drive, DriveData.bus_id));
+        row.append(td);
+        tbody.append(row);
+
+        table.append(tbody);
+
+        $("#floppyarea_"+Drive).html(table);
+        $(`#drive${Drive}file`).hide();
+        $(`#${Drive}on`).on("change", async function () { configChange(DrivePath, "Drive", "Enabled"); });
+        $(`#${Drive}off`).on("change", async function () { configChange(DrivePath, "Drive", "Disabled"); });
+        $(`#drive${Drive}browse`).on('click', function(e) {
+            $(`#drive${Drive}file`).trigger('click');
+        });
+
+        $(`#drive${Drive}file`).on("change", function () {
+        console.log(`#drive${Drive}file`, "change");
+          floppyButton(Drive, DriveData.bus_id, "file", $(`#drive${Drive}file`)[0].files[0]);
+        });
+
+        $("#floppyarea_"+Drive).on("dragover", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(this).addClass("dragover");
+        });
+
+        $("#floppyarea_"+Drive).on("dragleave", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(this).removeClass("dragover");
+        });
+
+        $("#floppyarea_"+Drive).on("drop", function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(this).removeClass("dragover");
+
+          const files = e.originalEvent.dataTransfer.files;
+          if (files.length > 0) {
+            floppyButton(Drive, DriveData.bus_id, "file", files[0]);
+          }
+        });
+    }
+
+    async function showFloppy() {
+        let [dataA, dataB] = await getDrivesData();
+        if (dataA)
+            showDrive("a", dataA);
+        else
+            $("#floppyarea_a").html("<i>No connection to device.</i>");
+        if (dataB) {
+            showDrive("b", dataB);
+            $("#floppyarea_b").show();
+        }
+        else
+            $("#floppyarea_b").hide();
     }
 
     async function runBASIC() {
@@ -1373,9 +2022,23 @@ function disassembler(startInt, byteArray) {
         padding: 20px;
         visibility: hidden;
     }
+    div#left-nav table {
+        margin: auto;
+        line-height: 2;
+    }
+    div#left-nav li {
+        list-style-type: none;
+    }
     div#left-nav a {
         color: blue;
         text-decoration: none;
+    }
+    .symbol {
+        font-family: system-ui, "Segoe UI Symbol", "Apple Symbols", sans-serif;
+        font-size: 28px
+    }
+    .symbol a {
+        padding-right: 15px;
     }
     div#left-nav a:hover {
         background-color: #beffff;
@@ -1390,15 +2053,19 @@ function disassembler(startInt, byteArray) {
         width: 800px;
         display: none;
     }
-    #livemon {
+    div#livemon, div#sidplay, div#config, div#floppy, div#runner, div#tokenizer {
         flex-grow: 1;
         padding: 20px;
         display:none;
     }
-    #sidplay {
-        flex-grow: 1;
-        padding: 20px;
-        display:none;
+    #floppyarea_a, #floppyarea_b {
+        background: beige;
+    }
+    #floppyarea_a.dropzone.dragover, #floppyarea_b.dropzone.dragover {
+        border-color: #4caf50;
+        color: #4caf50;
+        background-color: #f6fff6;
+        border: 2px dashed green;
     }
     .dropzone {
         max-width: 600px;
@@ -1415,35 +2082,7 @@ function disassembler(startInt, byteArray) {
         color: #4caf50;
         background-color: #f6fff6;
     }
-    #runner {
-        flex-grow: 1;
-        padding: 20px;
-        display:none;
-    }
-    #tokenizer {
-        flex-grow: 1;
-        padding: 20px;
-        display:none;
-    }
-    #sidmsg {
-        flex-grow: 1;
-        margin-top: 20px;
-        padding: 20px;
-        display:none;
-        background-color: red;
-        color: white;
-        width: 400px;
-    }
-    #runmsg {
-        flex-grow: 1;
-        margin-top: 20px;
-        padding: 20px;
-        display:none;
-        background-color: red;
-        color: white;
-        width: 400px;
-    }
-    #basicmsg {
+    #sidmsg, #runmsg, #basicmsg, #cfgmsg {
         flex-grow: 1;
         margin-top: 20px;
         padding: 20px;
@@ -1461,15 +2100,62 @@ function disassembler(startInt, byteArray) {
     .c64-textarea:focus {
         outline: none;
     }
-    button, input[type="button"], input[type="password"], input[type="file"]::file-selector-button {
+    select, button, input[type="text"], input[type="number"], input[type="button"], input[type="password"], input[type="file"]::file-selector-button {
         padding: 5px 10px;
         font-size: 14px;
     }
     li {
-	margin: 5px 0;
+        margin: 15px 0;
     }
+	table.config, table.config td {
+	    border: 0;
+	    padding: 5px 0;
+	}
+	table.config td:first-child {
+            padding-right: 40px;
+	}
+	table.config td:last-child {
+            color: blue;
+            cursor: pointer;
+	}
+	table.config th {
+            line-height: 1.5em;
+            background: antiquewhite;
+            color: blue;
+            cursor: pointer;
+	}
+        table.config td.click:hover, table.config th.click:hover {
+            background-color: #beffff;
+	}
+	#configarea {
+	    margin-left: 50px;
+	}
+	table.floppy {
+            width: 100%;
+        }
+        table.floppy select {
+            font-size: 28px;
+        }
+        table.floppy tr#mount {
+            line-height: 3;
+            font-size: 24px;
+            background: burlywood;
+            text-align: center;
+        }
+        table.floppy tr#drop {
+            color: gray;
+            font-style: italic;
+            height: 120px;
+        }
+        td.floppybuttons {
+           text-align: center;
+        }
+        td.floppybuttons input {
+           margin: 10px 20px;
+           padding: 8px 12px;
+        }
 
-    @font-face {
+        @font-face {
             font-family: 'C64';
             src: url('C64_Pro-STYLE.woff') format('woff'); /* Path to your C64 font file */
         }
@@ -1492,7 +2178,7 @@ function disassembler(startInt, byteArray) {
             line-height: 1.5;
             width: 900px;
             height: 400px;
-            resize: none;
+            /*resize: none;*/
         }
 
 .trinity-dialog {
@@ -1561,9 +2247,48 @@ function disassembler(startInt, byteArray) {
     border: 2px solid var(--background);
 }
 
+/* on-off toggle button */
+.toggle {
+  position: relative;
+  width: 120px;
+  height: 40px;
+  background: #ccc;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: sans-serif;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle label {
+  width: 50%;
+  text-align: center;
+  z-index: 2;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+.slider {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background: #4caf50;
+  border-radius: 20px;
+  transition: transform 0.3s;
+  left: 0;
+}
+
+.toggle .off-radio:checked ~ .slider {
+  transform: translateX(100%);
+  background: #f44336;
+}
+
 </style>
-
-
 
 </head>
 <body>
@@ -1571,25 +2296,31 @@ function disassembler(startInt, byteArray) {
 
     <div id="content">
         <div id="left-nav">
-            <ul>
-                <li><a id="showwelcome" href="#">Home</a></li>
-                <li><a id="showsidplay" href="#">SID Player</a></li>
-                <li><a id="showrunner" href="#">Execute PRG / CRT</a></li>
-                <li><a id="showterminal"  href="#">Live Monitor</a></li>
-                <li><a id="showtokenizer"  href="#">BASIC Editor</a></li>
+            <table>
+                <tr><td><a id="showwelcome" href="#">Home</a></td></tr>
+                <tr><td><a id="showconfig" href="#">Configuration</a></td></tr>
+                <!--<tr><td><a id="showsidplay" href="#">SID Player</a></td></tr>-->
+                <tr><td><a id="showrunner" href="#">Remote Player</a></td></tr>
+                <tr><td><a id="showfloppy" href="#">Floppy Drives</a></td></tr>
+                <tr><td><a id="showterminal"  href="#">Live Monitor</a></td></tr>
+                <tr><td><a id="showtokenizer"  href="#">BASIC Editor</a></td></tr>
+            </table>
+            <br/>
+            <center class="symbol">
+                <a id="domenubutton" href="#" title="Menu Button">&#9881;</a>
+                <a id="doreset" href="#" title="Reset Machine">&#8635;</a>
+                <a id="doreboot" href="#" title="Reboot Machine">&#10227;</a>
+            </center>
+            <center class="symbol" style="margin-top:100px;">
+                <a id="doshutdown" href="#" title="Power off / Standby" class="powersymbol">&#x23FB;</a>
+                <a id="logout" href="#" title="Logout">&#x279C;]</a>
+            </center>
+            <ul style="font-size: 12px;">
+                Links: <a href="https://1541u-documentation.readthedocs.io/en/latest/api/api_calls.html" target="_blank" rel="noopener" title="API Documentation">API</a>,
+                <a href="https://ultimate64.com/Firmware" target="_blank" rel="noopener" title="Firmware Releases">Firmware</a>
+                <br>
             </ul>
-            <ul>
-                <li><a id="doreset" href="#">Reset Machine</a></li>
-                <li><a id="doreboot" href="#">Reboot Machine</a></li>
-                <li><a id="domenubutton" href="#">Menu Button</a></li>
-            </ul>
-            <ul>
-                <li><a href="https://1541u-documentation.readthedocs.io/en/latest/api/api_calls.html" target="_blank" rel="noopener">API Documentation</a></li>
-                <li><a href="https://ultimate64.com/Firmware" target="_blank" rel="noopener">Firmware Releases</a></li>
-            </ul>
-            <ul id="logoutmenuitem">
-                <li><a id="logout" href="#">Logout</a></li>
-            </ul>
+            <div id="firmware_version" style="font-size: 12px;color: gray;text-align: center;"></div>
         </div>
 
         <div id="login" class="page">
@@ -1599,9 +2330,9 @@ function disassembler(startInt, byteArray) {
         </div>
 
         <div id="welcome" class="page">
-            <h1>Welcome to your Ultimate product!</h1>
+            <h1>Welcome to your Commodore 64 Ultimate!</h1>
             <p>This site serves as the dedicated web server 
-                for the Ultimate 64 and Ultimate cartridge systems. It offers a comprehensive suite of APIs, designed to 
+                for the Commodore 64 Ultimate. It offers a comprehensive suite of APIs, designed to 
                 enable the development of advanced integrations and remote access to your system.</p>
             <p>You can find out more by visiting the official <a href="https://ultimate64.com/" target="_blank" rel="noopener"> Ultimate 64 website</a>,
                 or by joining our <a href="https://www.facebook.com/groups/ultimate64" target="_blank" rel="noopener">Facebook group</a>.
@@ -1612,12 +2343,41 @@ function disassembler(startInt, byteArray) {
             <p>Gideon Z.</p>
         </div>
 
+        <div id="config" class="page">
+            <h1>Configuration</h1>
+            <p>Remotely show and change the configuration of your Ultimate!</p>
+
+            <div id="configarea">
+			No connection to device...
+            </div>
+            <br>
+            <div style="padding-left: 40px;">
+	      <span class="padding-tr-5"><input type="button" id="submitSaveCfg" value="Save" title="Save configuration settings in flash memory."></span>
+              <span class="padding-tr-5"><input type="button" id="submitLoadCfg" value="Load" title="Load configuration settings stored in flash memory."></span>
+              <span class="padding-tr-5"><input type="button" id="submitResetCfg" value="Reset" title="Reset all configuration settings to default"></span>
+            </div>
+            <div id="cfgmsg">An error has occurred during configuration.</div>
+        </div>
+
+        <div id="floppy" class="page">
+            <h1>Floppy Drives</h1>
+            <p>Remotely mount disks to your Ultimate's virtual floppy drives!</p>
+
+            <div id="floppyarea_a" class="dropzone">No connection to device...</div>
+            <br/>
+            <br/>
+            <div id="floppyarea_b" class="dropzone"></div>
+
+            <br>
+            <div id="cfgmsg">An error has occurred during configuration.</div>
+        </div>
+
         <div id="sidplay" class="page">
             <h1>SID Player</h1>
             <p>Remotely play a SID file on your Ultimate!</p>
 
             <div id="siddropzone" class="dropzone" title="Drop SID file to be loaded here">
-                Drag & drop SID file here
+                Drag & drop a SID file here
                 <br />
                 <p style="font-size: 4em">&#x1F3B6;</p>
                 <br />
@@ -1632,19 +2392,19 @@ function disassembler(startInt, byteArray) {
         </div>
 
         <div id="runner" class="page">
-            <h1>PRG / CRT Executor</h1>
-            <p>Remotely load a program or cartridge to your Ultimate!</p>
+            <h1>Remote Player</h1>
+            <p>Remotely load &amp; run/play a program, cartridge or SID file on your Ultimate!</p>
 
             <div id="runnerdropzone" class="dropzone" title="Drop file to be loaded here">
-                Drag & drop PRG or CRT file here
+                Drag & drop a SID, PRG or CRT file here
                 <br />
-                <p style="font-size: 4em">&#x21EA;</p>
+                <p style="font-size: 4em">&#x21EA; &#x1F3B6;</p>
                 <br />
                 or press button to browse
                 <br /><br />
                 <input type="file" id="runnerfile" name="file" accept=".prg,.crt,.PRG,.CRT,.sid,.SID" title="Select PRG/CRT/SID file to be run">
                 <br /><br />
-                <input type="button" id="runnersubmit" value="Run Again!" title="Upload and RUN the selected file again">
+                <input type="button" id="runnersubmit" value="Play/Run Again!" title="Upload and RUN the selected file again">
             </div>
 
             <div id="runmsg">An error has occurred when loading the selected file.</div>
@@ -1652,7 +2412,7 @@ function disassembler(startInt, byteArray) {
 
         <div id="livemon" class="page">
             <h1>Live Monitor</h1>
-            <p>Below is a simple 6510 monitor attached to your U64 or UII+.</p>
+            <p>Remotely inspect and debug the 6510 CPU with the monitor...</p>
             <div id="terminal" class="trinity-dialog">
                 <header>
                     <ul>
@@ -1682,7 +2442,7 @@ function disassembler(startInt, byteArray) {
         </div>
 
         <div id="tokenizer" class="page">
-            <h1>BASIC Editor / Tokenizer</h1>
+            <h1>BASIC Editor</h1>
             <p>Here, you may enter a BASIC program, and upload it directly to your machine.</p>
 
             <textarea id="basiceditor" spellcheck="false" wrap="off" class="c64-textarea" cols="80">
@@ -1692,7 +2452,7 @@ function disassembler(startInt, byteArray) {
                 <span class="padding-tr-5"><input type="button" id="submitBASIC" value="Upload" title="Upload program to C64 memory"></span>
                 <span class="padding-tr-5"><input type="button" id="submitBASICAndRun" value="Upload and Run"  title="Upload program to C64 memory and RUN"></span>
                 <span class="padding-tr-5"><input type="button" id="runBASIC" value="Run" title="Send RUN command to the C64"></span>
-                <span class="padding-tr-5"><input type="button" id="stopBASIC" value="Stop" title="Send STOP command to the C64"></span>
+                <span class="padding-tr-5"><input type="button" id="stopBASIC" value="Break" title="Send BREAK command to the C64"></span>
                 <input type="checkbox" id="uppercaseBASIC"><label for="uppercaseBASIC" title="Toggle uppercase/lowercase display of BASIC program text">Uppercase</label>
             </div>
 
