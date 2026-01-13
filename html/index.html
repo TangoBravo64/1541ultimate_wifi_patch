@@ -1,6 +1,6 @@
 <html lang="en">
 <head>
-<!-- WebUI development version 2026-01-11, https://github.com/TangoBravo64
+<!-- WebUI development version 2026-01-13, https://github.com/TangoBravo64
      GNU GENERAL PUBLIC LICENSE, Version 3, (c) Purple Tentacle
 -->
 <meta charset="utf-8">
@@ -643,9 +643,9 @@ let ConfigOptions = {
     async function showConfig(path) {
         if (typeof path === 'undefined')
             path = "";
-        let request_path = path;
+        let request_path = encodeURIComponent(path);
         if (path !== "")
-            request_path = "/"+path;
+            request_path = "/"+encodeURIComponent(path);
         let [status_code, content] = await make_get_request("http://" + serverIP + "/v1/configs"+request_path);
         console.log("showConfig", path, content);
         if (status_code === 200) {
@@ -718,14 +718,56 @@ let ConfigOptions = {
         return [dataA, dataB];
     }
 
+    /* find the last digit in the filename, increase it by 1 (mapping 0=>1, ... 8=>9,9=>1). */
     function incrementLastDigit(s) {
         return s.replace(/(\d)(?!.*\d)/, (_, d) =>
             d === '9' ? '1' : String(Number(d) + 1)
         );
     }
 
+    /* find the last digit in the filename, set it by 1 (mapping 0,..,9=>1). */
     function resetLastDigit(s) {
         return s.replace(/(\d)(?!.*\d)/, (_, d) => '1');
+    }
+
+    /* replace the last character of the filename: map A..Y=>B..Z, Z=>A, a..y=>b..z, z=>a */
+    function flipLastChar(str) {
+        if (str.length === 0) return null;
+
+        const lastChar = str[str.length - 1];
+        let newChar = lastChar;
+
+        if (lastChar >= 'A' && lastChar <= 'Y') {
+            newChar = String.fromCharCode(lastChar.charCodeAt(0) + 1);
+        } else if (lastChar >= 'a' && lastChar <= 'y') {
+            newChar = String.fromCharCode(lastChar.charCodeAt(0) + 1);
+        } else if (lastChar === 'Z') {
+            newChar = 'A';
+        } else if (lastChar === 'z') {
+            newChar = 'a';
+        }
+        else
+            return null;
+
+        return str.slice(0, -1) + newChar;
+    }
+
+    /* replace the last character of the filename with A */
+    function resetLastChar(str) {
+        if (str.length === 0) return null;
+
+        const lastChar = str[str.length - 1];
+        let newChar = 'A';
+
+        if (lastChar >= 'B' && lastChar <= 'Z') {
+            newChar = 'A';
+        } else if (lastChar >= 'b' && lastChar <= 'z') {
+            newChar = 'a';
+        }
+        else
+            return null;
+
+        return str.slice(0, -1) + newChar;
     }
 
     async function mountDisk(drive, path) {
@@ -753,33 +795,53 @@ let ConfigOptions = {
     }
 
     async function flipDisk(drive, ID) {
-      let [dataA, dataB] = await getDrivesData();
-      let data = (drive=="a") ? dataA : dataB;
-      if ((data!=null)&&(data.image_file)) {
-          let filename = data.image_file;
-          let extension = getFileExtension(filename);
-          let basename = (extension.length === 0) ? filename : filename.slice(0, - extension.length);
-          const digitindex = basename.search(/\d(?!.*\d)/);
-          if ((digitindex > -1)&&(extension !== "")) {
-            let path = data.image_path + incrementLastDigit(basename)+extension;
-            console.log(filename, digitindex, path);
-            // check if file exists
-            let [status_code, content] = await make_get_request("http://" + serverIP + `/v1/files/${path}:info`);
-            if (status_code !== 200)
+        let [dataA, dataB] = await getDrivesData();
+        let data = (drive=="a") ? dataA : dataB;
+        if ((data!=null)&&(data.image_file)) {
+            let filename = data.image_file;
+            const filenameList = [];
+            let extension = getFileExtension(filename);
+            let basename = (extension.length === 0) ? filename : filename.slice(0, - (extension.length+1));
+            if (extension.length>0)
+                extension = "."+extension;
+
+            // when the last character is a letter, also try flipping this
             {
-              path = data.image_path + resetLastDigit(basename)+extension;
-              console.log(filename, digitindex, path);
-              // check if file exists
-              [status_code, content] = await make_get_request("http://" + serverIP + `/v1/files/${path}:info`);
-              if (status_code !== 200) {
-                  console.log("image does not exist!", path);
-                  return;
-               }
+                let a = flipLastChar(basename);
+                if (a !== null)
+                    filenameList.push(a+extension);
+                let b = resetLastChar(basename);
+                if ((b !== null)&&(a !== b))
+                    filenameList.push(b+extension);
             }
-            console.log("image exists!", drive, path);
-            mountDisk(drive, path);
-          }
-      }
+
+            const digitindex = basename.search(/\d(?!.*\d)/);
+            //console.log("digitindex", digitindex, basename, extension);
+            if (extension !== "") {
+                // there is a digit in the filename: try increasing/flipping this
+                let a = incrementLastDigit(basename);
+                if (a !== basename)
+                    filenameList.push(a+extension);
+                let b = resetLastDigit(basename);
+                if ((b !== basename)&&(b != a))
+                    filenameList.push(b+extension);
+            }
+
+            // now try if any of these names exist, in given order
+            for (const fn of filenameList) {
+                if (fn === null) continue;
+                let path = data.image_path + fn;
+                // check if file exists
+                const encodedPath = encodeURIComponent(path);
+                console.log("checking if image file exists:", path, encodedPath);
+                let [status_code, content] = await make_get_request("http://" + serverIP + `/v1/files/${encodedPath}:info`);
+                if (status_code === 200) {
+                    console.log("image file exists!", path, drive);
+                    mountDisk(drive, path);
+                    break;
+                }
+            }
+        }
     }
 
     async function floppyButton(Drive, ID, operation, file) {
