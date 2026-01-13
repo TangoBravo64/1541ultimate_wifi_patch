@@ -47,6 +47,12 @@ $(document).ready(async function () {
             else {
                 $("#logout").hide();
             }
+            // hide the power button for products, which don't support this feature
+            const ProductsNoPwrCtrl = ["Ultimate","Ultimate II","Ultimate II+","Ultimate II+L","Ultimate 64","Ultimate 64 Elite"];
+            if (ProductsNoPwrCtrl.includes(product))
+                $("#doshutdown").hide();
+            else
+                $("#doshutdown").show();
 
             $("#banner").html("<img src='"+COMMODORE_LOGO+"' style='vertical-align:middle;height:40px;margin-right:10px;'>Commodore 64 Ultimate");
 
@@ -2100,7 +2106,8 @@ function disassembler(startInt, byteArray) {
         font-size: 28px
     }
     .symbol a {
-        padding-right: 15px;
+        padding-right: 8px;
+        padding-left: 8px;
     }
     div#left-nav a:hover {
         background-color: #beffff;
