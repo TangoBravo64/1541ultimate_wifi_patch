@@ -47,16 +47,14 @@ $(document).ready(async function () {
             else {
                 $("#logout").hide();
             }
-
-            // hide the power button for products, which don't support this feature
-            const ProductsNoPwrCtrl = ["Ultimate","Ultimate II","Ultimate II+","Ultimate II+L","Ultimate 64","Ultimate 64 Elite"];
-            if (ProductsNoPwrCtrl.includes(product))
-                $("#dopoweroff").hide();
-            else
-                $("#dopoweroff").show();
-
             $("#banner").html("<img src='"+COMMODORE_LOGO+"' style='vertical-align:middle;height:40px;margin-right:10px;'>Commodore 64 Ultimate");
 
+            // show power button for supported boards only
+            const ProductsWithPwrCtrl = ["Ultimate 64-II", "C64 Ultimate"];
+            if (ProductsWithPwrCtrl.includes(product))
+                $("#dopoweroff").show();
+
+            // show firmware version in side panel
             let sysInfo = "";
             if (ultimateInfo.firmware_version)
                 sysInfo += "firmware: v"+ultimateInfo.firmware_version;
@@ -64,7 +62,7 @@ $(document).ready(async function () {
                 sysInfo += "<br/>hardware: "+ultimateInfo.product;
 
             if (sysInfo !== "")
-                $("#firmware_version").html(sysInfo);
+                $("#firmware-version").html(sysInfo);
 
             $("#left-nav").css("visibility", "visible");
             $(".page").hide();
@@ -100,7 +98,7 @@ $(document).ready(async function () {
 
     async function doPowerOff() {
         let params = {};
-        if (confirm("Confirm: switch off power of your Ultimate?")) {
+        if (confirm("Are you sure you want to power off your Ultimate?")) {
             let [status_code, content] = await make_put_request("http://" + serverIP + "/v1/machine:poweroff", params);
         }
     };
@@ -298,8 +296,8 @@ $(document).ready(async function () {
             if(status_code !== 200)
                 $("#runmsg").show();
             return status_code == 200;
-	}
-	return false;
+        }
+        return false;
     }
 
     // BASIC/tokenizer page event handlers
@@ -2107,10 +2105,13 @@ function disassembler(startInt, byteArray) {
     div#left-nav a:hover {
         background-color: #beffff;
     }
-    #firmware_version {
+    #firmware-version {
         font-size: 12px;
         color: darkgray;
         text-align: center;
+    }
+    #dopoweroff {
+        display: none;
     }
     .symbol {
         font-family: system-ui, "Segoe UI Symbol", "Apple Symbols", sans-serif;
@@ -2399,7 +2400,7 @@ function disassembler(startInt, byteArray) {
                 <a href="https://ultimate64.com/Firmware" target="_blank" rel="noopener" title="Firmware Releases">Firmware</a>
                 <br>
             </ul>
-            <div id="firmware_version"></div>
+            <div id="firmware-version"></div>
         </div>
 
         <div id="login" class="page">
